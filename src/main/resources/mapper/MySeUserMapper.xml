@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sufu.ems.dao.MySeUserMapper">
+<select id="getUserRolesByUserId" resultType="com.sufu.ems.entity.SeRole">
+    SELECT
+        *
+    FROM
+        se_role AS r,
+        se_user_role AS ur
+    WHERE
+        r.id = ur.uid
+        AND ur.id =#{id}
+</select>
+<select id="loadUserByUserName" resultType="com.sufu.ems.entity.SeUser">
+    SELECT
+        *
+    FROM
+        se_user
+    WHERE
+        username = #{username}
+</select>
+</mapper>
