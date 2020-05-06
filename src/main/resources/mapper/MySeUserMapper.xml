@@ -5,11 +5,13 @@
     SELECT
         *
     FROM
-        se_role AS r,
-        se_user_role AS ur
-    WHERE
-        r.id = ur.uid
-        AND ur.id =#{id}
+        se_role
+    <if test="array != null">
+        WHERE id IN
+        <foreach collection="array" open="(" close=")" item="id" separator=",">
+            #{id}
+        </foreach>
+    </if>
 </select>
 <select id="loadUserByUserName" resultType="com.sufu.ems.entity.SeUser">
     SELECT
@@ -19,4 +21,12 @@
     WHERE
         username = #{username}
 </select>
+    <select id="getUserRolesString" resultType="com.sufu.ems.entity.SeUserRole">
+    SELECT
+	    *
+    FROM
+	    `se_user_role`
+    WHERE
+	    uid = #{id}
+    </select>
 </mapper>

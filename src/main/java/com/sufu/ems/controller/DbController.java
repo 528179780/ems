@@ -2,18 +2,19 @@ package com.sufu.ems.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author sufu
  * @version 1.0.0
- * @date 2020/4/24 21:58
+ * @date 2020/5/7 1:02
  * @description
  */
 @Controller
-public class MainController {
+@RequestMapping(value = "db")
+public class DbController {
     @GetMapping({"/","index"})
-    public String main(){
-        return "index";
+    public String index(){
+        return "/db/index";
     }
 }

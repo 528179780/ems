@@ -4,6 +4,7 @@ import com.sufu.ems.dao.MySeUserMapper;
 import com.sufu.ems.dao.SeUserMapper;
 import com.sufu.ems.entity.SeRole;
 import com.sufu.ems.entity.SeUser;
+import com.sufu.ems.service.SeUserService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ class EmsApplicationTests {
     MySeUserMapper mySeUserMapper;
     @Autowired
     private SeUserMapper seUserMapper;
+    @Autowired
+    SeUserService userService;
     @Test
     void contextLoads() {
     }
@@ -32,11 +35,8 @@ class EmsApplicationTests {
         System.out.println(passwordEncoder.encode("123...qwe"));
     }
     @Test
-    void testGetRole(){
-        List<SeRole> roles = mySeUserMapper.getUserRolesByUserId(1);
-        for (SeRole seRole : roles) {
-            System.out.println(seRole.toString());
-        }
+    void testLoadUserByUsername(){
+        userService.loadUserByUsername("sufu");
     }
     @Test
     void testGetUser(){

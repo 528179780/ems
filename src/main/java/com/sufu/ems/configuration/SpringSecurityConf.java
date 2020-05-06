@@ -8,9 +8,15 @@ import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author sufu
@@ -19,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @description
  */
 @Configuration
+@EnableWebSecurity
 public class SpringSecurityConf extends WebSecurityConfigurerAdapter {
     @Autowired
     SeUserService seUserService;
@@ -27,11 +34,11 @@ public class SpringSecurityConf extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
     /**
-     * @Author sufu
-     * @Date 2020/5/5 10:50
+     * @author sufud
+     * @date 2020/5/5 10:50
      * @param
      * @return org.springframework.security.access.hierarchicalroles.RoleHierarchy
-     * @Description 设置权限继承 admin也具有user权限
+     * @description 设置权限继承 admin也具有user权限
      **/
     @Bean
     RoleHierarchy roleHierarchy(){
@@ -62,13 +69,23 @@ public class SpringSecurityConf extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/static/**","/assets/**").permitAll()
                 .antMatchers("/admin/**").hasRole("admin")
-                .antMatchers("/user/**").hasRole("user")
+                .antMatchers("/student/**").hasRole("student")
+                .antMatchers("/db/**").hasRole("db")
+                .antMatchers("/teacher/**").hasRole("teacher")
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginProcessingUrl("/login").permitAll()
+                .formLogin()
+                .loginProcessingUrl("/login").permitAll()
+                .and()
+                .logout().logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .clearAuthentication(true)//清除身份认证信息
+                .invalidateHttpSession(true)//使session失效
                 .and()
                 .csrf().disable();
+        http.rememberMe();
     }
 }

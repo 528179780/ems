@@ -16,7 +16,7 @@ public class SeUserRole {
     /**
      * 角色id
      */
-    private Integer rid;
+    private String rid;
 
     /**
      * @return id
@@ -55,7 +55,7 @@ public class SeUserRole {
      *
      * @return rid - 角色id
      */
-    public Integer getRid() {
+    public String getRid() {
         return rid;
     }
 
@@ -64,7 +64,7 @@ public class SeUserRole {
      *
      * @param rid 角色id
      */
-    public void setRid(Integer rid) {
+    public void setRid(String rid) {
         this.rid = rid;
     }
 }
