@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SpringSecurityConf extends WebSecurityConfigurerAdapter {
     @Autowired
     SeUserService seUserService;
+
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -78,6 +79,7 @@ public class SpringSecurityConf extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .loginPage("/login")
                 .loginProcessingUrl("/login").permitAll()
                 .and()
                 .logout().logoutUrl("/logout")
@@ -86,6 +88,5 @@ public class SpringSecurityConf extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)//使session失效
                 .and()
                 .csrf().disable();
-        http.rememberMe();
     }
 }

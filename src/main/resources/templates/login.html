@@ -10,7 +10,8 @@
   </head>
   <body>
     <div class="login-form">
-        <form action="/login">
+      <h5 th:if="${param.error}">用户名或者密码错误，请重试</h5>
+        <form action="/login" method="post">
           <h1>用户登录/login</h1>
           <div class="input-group">
             <div class="icon">
@@ -18,7 +19,7 @@
             </div>
             <div>
               <h5>Username</h5>
-              <input type="text" class="input">
+              <input type="text" name="username" class="input">
             </div>
           </div>
           <div class="input-group">
@@ -27,7 +28,7 @@
             </div>
             <div>
               <h5>Password</h5>
-              <input type="password" class="input">
+              <input type="password" name="password" class="input">
             </div>
           </div>
           <input type="submit" value="登录" class="login-btn">
