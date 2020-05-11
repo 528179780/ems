@@ -1,5 +1,8 @@
 package com.sufu.ems.entity;
 
+import lombok.AccessLevel;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Table(name = "se_user_role")

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sufu.ems.dao.TbExamStudentMapper">
+  <resultMap id="BaseResultMap" type="com.sufu.ems.entity.TbExamStudent">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="exam_number" jdbcType="VARCHAR" property="examNumber" />
+    <result column="student_number" jdbcType="VARCHAR" property="studentNumber" />
+    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="exam_begin" jdbcType="TIMESTAMP" property="examBegin" />
+    <result column="exam_end" jdbcType="TIMESTAMP" property="examEnd" />
+    <result column="exam_place" jdbcType="VARCHAR" property="examPlace" />
+    <result column="major_number" jdbcType="VARCHAR" property="majorNumber" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+  </resultMap>
+</mapper>

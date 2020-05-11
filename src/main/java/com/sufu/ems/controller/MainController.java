@@ -20,4 +20,8 @@ public class MainController {
     public String login(){
         return "login";
     }
+    @GetMapping("error/500")
+    public String error500(){
+        return "error/500";
+    }
 }

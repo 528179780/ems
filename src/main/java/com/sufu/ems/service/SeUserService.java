@@ -2,7 +2,6 @@ package com.sufu.ems.service;
 
 import com.sufu.ems.dao.MySeUserMapper;
 import com.sufu.ems.dao.SeUserMapper;
-import com.sufu.ems.entity.SeRole;
 import com.sufu.ems.entity.SeUser;
 import com.sufu.ems.entity.SeUserRole;
 import org.slf4j.Logger;
@@ -14,13 +13,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.List;
-
 /**
  * @author sufu
  * @version 1.0.0
  * @date 2020/4/29 10:57
- * @description
+ * @description Spring Security 登录认证的service类
  */
 @Service
 public class SeUserService implements UserDetailsService {
@@ -38,7 +35,7 @@ public class SeUserService implements UserDetailsService {
         if(user==null){
             throw new UsernameNotFoundException("账户不存在");
         }
-        SeUserRole seUserRole = mySeUserMapper.getUserRolesString(1);
+        SeUserRole seUserRole = mySeUserMapper.getUserRolesString(user.getId());
         String rolesString = seUserRole.getRid();
         String[] string = rolesString.split(",");
         user.setRoles(mySeUserMapper.getUserRolesByUserId(string));

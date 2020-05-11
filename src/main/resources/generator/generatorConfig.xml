@@ -13,7 +13,7 @@
 
         <!-- 配置 tk.mybatis 插件 -->
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <property name="mappers" value="tk.tk.utils.MyMapper"/>
+            <property name="mappers" value="tk.utils.MyMapper"/>
         </plugin>
 
         <!-- 配置数据库连接 -->
@@ -38,7 +38,7 @@
                 type="XMLMAPPER"/>
 
         <!-- 配置需要指定生成的数据库和表，% 代表所有表 -->
-        <table tableName="%">
+        <table tableName="tb_exam_student">
             <!-- mysql 配置 -->
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>

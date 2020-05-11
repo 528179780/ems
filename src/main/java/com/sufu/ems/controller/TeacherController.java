@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @description
  */
 @Controller
-@RequestMapping(value = "teacher")
+@RequestMapping(value = "/teacher")
 public class TeacherController {
-    @GetMapping({"/","index"})
+    @GetMapping({"/","/index"})
     public String index(){
         return "/teacher/index";
     }
