@@ -2,23 +2,23 @@ package com.sufu.ems;
 
 import com.sufu.ems.dao.MySeUserMapper;
 import com.sufu.ems.dao.SeUserMapper;
-import com.sufu.ems.dao.TbMajorMapper;
-import com.sufu.ems.dao.TbStudentMapper;
 import com.sufu.ems.entity.SeUser;
+import com.sufu.ems.entity.TbExam;
 import com.sufu.ems.entity.TbMajor;
 import com.sufu.ems.entity.TbStudent;
+import com.sufu.ems.service.TbExamService;
 import com.sufu.ems.service.SeUserService;
 
 import com.sufu.ems.service.TbMajorService;
 import com.sufu.ems.service.TbStudentService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
@@ -30,6 +30,7 @@ import java.util.List;
 //@Transactional
 //@Rollback
 class EmsApplicationTests {
+    private Logger logger = LoggerFactory.getLogger(EmsApplicationTests.class);
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -42,6 +43,8 @@ class EmsApplicationTests {
     private TbStudentService tbStudentService;
     @Autowired
     private TbMajorService tbMajorService;
+    @Autowired
+    private TbExamService tbExamService;
     @Test
     void contextLoads() {
     }
@@ -51,18 +54,18 @@ class EmsApplicationTests {
     }
     @Test
     void testLoadUserByUsername(){
-        userService.loadUserByUsername("sufu");
+        userService.loadUserByUsername("苏伏");
     }
     @Test
     void testGetUser(){
-        SeUser user = mySeUserMapper.loadUserByUserName("sufu");
+        SeUser user = mySeUserMapper.loadUserByUserName("苏伏");
         System.out.println(user.getUsername());
     }
     @Test
     void testSeUserMapper(){
         Example example =new Example(SeUser.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("username", "sufu");
+        criteria.andEqualTo("username", "苏伏");
         SeUser user = seUserMapper.selectOneByExample(example);
         System.out.println(user.getUsername());
     }
@@ -115,5 +118,15 @@ class EmsApplicationTests {
     void testSelectTbMajorByMajorNumber(){
         String majorNumber = "0307";
         System.out.println(tbMajorService.selectByMajorNumber(majorNumber));
+    }
+    @Test
+    void testGetExams(){
+        TbStudent tbStudent = new TbStudent();
+        tbStudent.setStudentNumber("11803990401");
+        tbStudent.setStudentMajor("0307");
+        List<TbExam> tbExams = tbExamService.selectExams(tbStudent);
+        for (TbExam tbExam : tbExams) {
+            System.out.println(tbExam.toString());
+        }
     }
 }

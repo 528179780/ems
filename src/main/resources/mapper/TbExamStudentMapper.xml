@@ -6,7 +6,7 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="exam_number" jdbcType="VARCHAR" property="examNumber" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
     <result column="student_number" jdbcType="VARCHAR" property="studentNumber" />
     <result column="student_name" jdbcType="VARCHAR" property="studentName" />
     <result column="exam_begin" jdbcType="TIMESTAMP" property="examBegin" />

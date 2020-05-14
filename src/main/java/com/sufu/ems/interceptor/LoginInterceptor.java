@@ -11,6 +11,6 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
  * @date 2020/5/9 12:38
  * @description
  */
-public class LoginInterceptor extends SavedRequestAwareAuthenticationSuccessHandler {
+public class LoginInterceptor /*extends SavedRequestAwareAuthenticationSuccessHandler */{
     private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 }

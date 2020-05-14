@@ -18,12 +18,6 @@ public class TbScore {
     private Integer id;
 
     /**
-     * 考试编号
-     */
-    @Column(name = "exam_number")
-    private String examNumber;
-
-    /**
      * 课程名字
      */
     @Column(name = "course_name")
@@ -41,4 +35,21 @@ public class TbScore {
     @Column(name = "student_name")
     private String studentName;
 
+    /**
+     * 学年如：2019-2020
+     */
+    @Column(name = "study_year")
+    private String studyYear;
+
+    /**
+     * 学期如：1
+     */
+    @Column(name = "exam_term")
+    private Integer examTerm;
+
+    /**
+     * 分数 百分制
+     */
+    @Column(name = "exam_mark")
+    private Integer examMark;
 }

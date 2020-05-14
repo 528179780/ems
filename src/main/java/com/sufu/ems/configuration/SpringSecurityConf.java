@@ -19,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author sufu
  * @version 1.0.0
  * @date 2020/4/24 21:56
- * @description
+ * @description SpringSecurity 配置类
  */
 @Configuration
 @EnableWebSecurity

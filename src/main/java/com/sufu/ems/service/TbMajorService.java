@@ -28,12 +28,25 @@ public class TbMajorService {
     public List<TbMajor> selectAll(){
         return tbMajorMapper.selectAll();
     }
+    /**
+     * @author sufu
+     * @date 2020/5/13 10:15
+     * @param num 要查找的专业的编码
+     * @return com.sufu.ems.entity.TbMajor
+     * @description 根据专业编码查找专业
+     **/
     public TbMajor selectByMajorNumber(String num){
         Example example = new Example(TbMajor.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("majorNumber", num);
         return tbMajorMapper.selectOneByExample(example);
-    }
+    }/**
+     * @author sufu
+     * @date 2020/5/13 10:15
+     * @param tbMajor 要增加的专业
+      * @return void
+     * @description 增加一个专业
+     **/
     public void insert(TbMajor tbMajor){
         tbMajorMapper.insert(tbMajor);
     }

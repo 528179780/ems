@@ -6,8 +6,8 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
     <result column="class_number" jdbcType="VARCHAR" property="classNumber" />
-    <result column="exam_number" jdbcType="VARCHAR" property="examNumber" />
     <result column="exam_begin" jdbcType="TIMESTAMP" property="examBegin" />
     <result column="exam_end" jdbcType="TIMESTAMP" property="examEnd" />
     <result column="exam_place" jdbcType="VARCHAR" property="examPlace" />
