@@ -9,7 +9,6 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   </head>
   <body>
-  <sec:authentication property="name" var="???"/>
   <div class="login-form">
       <h5 th:if="${param.error}">用户名或者密码错误，请重试</h5>
         <form action="/login" method="post" >

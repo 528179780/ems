@@ -1,7 +1,7 @@
 package com.sufu.ems.controller;
 
-import com.sufu.ems.Exception.ResourceNotFindException;
-import com.sufu.ems.Exception.UserNotFindException;
+import com.sufu.ems.exception.ResourceNotFindException;
+import com.sufu.ems.exception.UserNotFindException;
 import com.sufu.ems.dto.BaseResult;
 import com.sufu.ems.entity.TbExam;
 import com.sufu.ems.entity.TbScore;
@@ -35,7 +35,19 @@ public class StudentController {
     private TbScoreService tbScoreService;
     @GetMapping({"/","index"})
     public ModelAndView index(){
-        return new ModelAndView("/student/index");
+        return new ModelAndView("student/index");
+    }
+    @GetMapping("/score")
+    public ModelAndView toScorePage(){
+        return new ModelAndView("student/score");
+    }
+    @GetMapping("/exam")
+    public ModelAndView toExamPage(){
+        return new ModelAndView("student/exam");
+    }
+    @GetMapping("/select")
+    public ModelAndView toSelectCoursePage(){
+        return new ModelAndView("student/select-courses");
     }
     /**
      * @author sufu
@@ -71,7 +83,7 @@ public class StudentController {
             throw new ResourceNotFindException("没有找到成绩");
         }
         Map<String,Object> remap = new HashMap<>();
-        remap.put("students", exams);
+        remap.put("exams", exams);
         return BaseResult.success("成功",remap);
     }
     /**

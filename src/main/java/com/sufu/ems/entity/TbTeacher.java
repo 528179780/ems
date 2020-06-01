@@ -6,6 +6,12 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+/**
+ * @author sufu
+ * @version 1.0.0
+ * @date 2020/5/11 20:56
+ * @description 教师实体类
+ */
 @Table(name = "tb_teacher")
 @Data
 public class TbTeacher {

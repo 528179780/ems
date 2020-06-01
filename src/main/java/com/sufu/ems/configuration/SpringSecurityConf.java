@@ -1,5 +1,6 @@
 package com.sufu.ems.configuration;
 
+import com.sufu.ems.handler.LoginSuccessHandler;
 import com.sufu.ems.service.SeUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @date 2020/4/24 21:56
  * @description SpringSecurity 配置类
  */
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)

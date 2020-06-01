@@ -1,4 +1,4 @@
-package com.sufu.ems.Exception;
+package com.sufu.ems.exception;
 
 /**
  * @author sufu

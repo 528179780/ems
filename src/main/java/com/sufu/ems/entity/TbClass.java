@@ -5,6 +5,11 @@ import lombok.Data;
 import lombok.Setter;
 
 import javax.persistence.*;
+/**
+ * @author sufu
+ * @date 2020/5/15 16:48
+ * @description 班级实体类
+ **/
 
 @Table(name = "tb_class")
 @Data

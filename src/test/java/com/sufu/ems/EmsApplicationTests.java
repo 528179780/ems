@@ -11,12 +11,15 @@ import com.sufu.ems.service.SeUserService;
 
 import com.sufu.ems.service.TbMajorService;
 import com.sufu.ems.service.TbStudentService;
+import com.sufu.ems.utils.Constants;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import tk.mybatis.mapper.entity.Example;
@@ -45,6 +48,8 @@ class EmsApplicationTests {
     private TbMajorService tbMajorService;
     @Autowired
     private TbExamService tbExamService;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
     @Test
     void contextLoads() {
     }
@@ -128,5 +133,11 @@ class EmsApplicationTests {
         for (TbExam tbExam : tbExams) {
             System.out.println(tbExam.toString());
         }
+    }
+    @Test
+    void testRedis(){
+        stringRedisTemplate.opsForValue().set(Constants.ORDERKEY, 100+"");
+        String s = stringRedisTemplate.opsForValue().get(Constants.ORDERKEY);
+        System.out.println(s);
     }
 }

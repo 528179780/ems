@@ -7,6 +7,12 @@ import lombok.Setter;
 import java.util.Date;
 import javax.persistence.*;
 
+/**
+ * @author sufu
+ * @version 1.0.0
+ * @date 2020/5/11 20:56
+ * @description 学生实体类
+ */
 @Table(name = "tb_student")
 @Data
 public class TbStudent {

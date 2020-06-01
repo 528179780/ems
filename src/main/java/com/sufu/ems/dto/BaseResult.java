@@ -15,7 +15,7 @@ import java.util.Map;
 public class BaseResult implements Serializable {
     private Integer code;
     private String message;
-    private Map<String,Object> data;
+    private Object Data;
     public static BaseResult success(){
         BaseResult result = new BaseResult();
         result.setCode(200);
@@ -28,7 +28,7 @@ public class BaseResult implements Serializable {
         result.setMessage(msg);
         return result;
     }
-    public static BaseResult success(String msg,Map<String,Object> data){
+    public static BaseResult success(String msg,Object data){
         BaseResult result = new BaseResult();
         result.setCode(200);
         result.setMessage(msg);

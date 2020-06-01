@@ -1,7 +1,8 @@
-package com.sufu.ems.controller;
+package com.sufu.ems.handler;
 
-import com.sufu.ems.Exception.ResourceNotFindException;
-import com.sufu.ems.Exception.UserNotFindException;
+import com.sufu.ems.exception.NoClassNeedSelectException;
+import com.sufu.ems.exception.ResourceNotFindException;
+import com.sufu.ems.exception.UserNotFindException;
 import com.sufu.ems.dto.BaseResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,7 +26,14 @@ public class CustomExceptionHandler {
     }
     @ResponseBody
     @ExceptionHandler(value = UserNotFindException.class)
-    public BaseResult UserNotFindException(UserNotFindException exception){
+    public BaseResult UserNotFindExceptionHandler(UserNotFindException exception){
+        BaseResult result = BaseResult.fail(exception.getMessage());
+        result.setData(null);
+        return result;
+    }
+    @ResponseBody
+    @ExceptionHandler(value = NoClassNeedSelectException.class)
+    public BaseResult NoClassNeedSelectExceptionHandler(NoClassNeedSelectException exception){
         BaseResult result = BaseResult.fail(exception.getMessage());
         result.setData(null);
         return result;
