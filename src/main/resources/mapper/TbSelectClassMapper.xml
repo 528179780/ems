@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sufu.ems.dao.TbSelectClassMapper">
+  <resultMap id="BaseResultMap" type="com.sufu.ems.entity.TbSelectClass">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="course_number" jdbcType="VARCHAR" property="courseNumber" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="teacher_number" jdbcType="VARCHAR" property="teacherNumber" />
+    <result column="teacher_name" jdbcType="VARCHAR" property="teacherName" />
+    <result column="total_number" jdbcType="INTEGER" property="totalNumber" />
+    <result column="selected_number" jdbcType="INTEGER" property="selectedNumber" />
+    <result column="major_number" jdbcType="VARCHAR" property="majorNumber" />
+  </resultMap>
+</mapper>
