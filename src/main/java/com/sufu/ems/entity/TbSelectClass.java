@@ -1,14 +1,9 @@
 package com.sufu.ems.entity;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.List;
 
-/**
- * @author sufu
- * @version 1.0.0
- * @date 2020/5/11 20:56
- * @description 选课实体类 也是选课记录实体类
- */
 @Table(name = "tb_select_class")
 public class TbSelectClass {
     /**
@@ -45,33 +40,27 @@ public class TbSelectClass {
     /**
      * 课程总容量
      */
-    @Column(name = "total_number")
-    private Integer totalNumber;
+    @Column(name = "total_clesses")
+    private Integer totalClesses;
 
     /**
      * 已选人数
      */
-    @Column(name = "selected_number")
-    private Integer selectedNumber;
+    @Column(name = "classes_left")
+    private Integer classesLeft;
 
     /**
-     * 可选专业编码，用逗号隔开的字符串
+     * 可选专业编码列表，用逗号隔开的字符串 为空则所有专业都可选
      */
     @Column(name = "major_number")
     private String majorNumber;
 
-    public List<String> getMajors() {
+    private List<String> majors;
+
+    public List<String> setMajors() {
+        this.majors = Arrays.asList(majorNumber.split(","));
         return majors;
     }
-
-    public void setMajors(List<String> majors) {
-        this.majors = majors;
-    }
-
-    /*
-     * 可选专业编码列表
-     */
-    private List<String> majors;
 
     /**
      * 获取id
@@ -166,52 +155,52 @@ public class TbSelectClass {
     /**
      * 获取课程总容量
      *
-     * @return total_number - 课程总容量
+     * @return total_clesses - 课程总容量
      */
-    public Integer getTotalNumber() {
-        return totalNumber;
+    public Integer getTotalClesses() {
+        return totalClesses;
     }
 
     /**
      * 设置课程总容量
      *
-     * @param totalNumber 课程总容量
+     * @param totalClesses 课程总容量
      */
-    public void setTotalNumber(Integer totalNumber) {
-        this.totalNumber = totalNumber;
+    public void setTotalClesses(Integer totalClesses) {
+        this.totalClesses = totalClesses;
     }
 
     /**
      * 获取已选人数
      *
-     * @return selected_number - 已选人数
+     * @return classes_left - 课程余量
      */
-    public Integer getSelectedNumber() {
-        return selectedNumber;
+    public Integer getClassesLeft() {
+        return classesLeft;
     }
 
     /**
      * 设置已选人数
      *
-     * @param selectedNumber 已选人数
+     * @param classesLeft 课程余量
      */
-    public void setSelectedNumber(Integer selectedNumber) {
-        this.selectedNumber = selectedNumber;
+    public void setClassesLeft(Integer classesLeft) {
+        this.classesLeft = classesLeft;
     }
 
     /**
-     * 获取可选专业编码列表，用逗号隔开的字符串
+     * 获取可选专业编码列表，用逗号隔开的字符串 为空则所有专业都可选
      *
-     * @return major_number - 可选专业编码列表，用逗号隔开的字符串
+     * @return major_number - 可选专业编码列表，用逗号隔开的字符串 为空则所有专业都可选
      */
     public String getMajorNumber() {
         return majorNumber;
     }
 
     /**
-     * 设置可选专业编码列表，用逗号隔开的字符串
+     * 设置可选专业编码列表，用逗号隔开的字符串 为空则所有专业都可选
      *
-     * @param majorNumber 可选专业编码列表，用逗号隔开的字符串
+     * @param majorNumber 可选专业编码列表，用逗号隔开的字符串 为空则所有专业都可选
      */
     public void setMajorNumber(String majorNumber) {
         this.majorNumber = majorNumber;

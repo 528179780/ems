@@ -19,6 +19,13 @@ import java.util.List;
 public class TbScoreService {
     @Autowired
     private TbScoreMapper tbScoreMapper;
+    /**
+     * @author sufu
+     * @date 2020/6/3 下午1:17
+     * @param student 要查询的学生
+     * @return java.util.List<com.sufu.ems.entity.TbScore>
+     * @description 根据学生查询成成绩信息
+     **/
     public List<TbScore> selectByStudentNumber(TbStudent student){
         Example example = new Example(TbScore.class);
         Example.Criteria criteria = example.createCriteria();

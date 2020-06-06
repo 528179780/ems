@@ -10,8 +10,8 @@
     <result column="course_name" jdbcType="VARCHAR" property="courseName" />
     <result column="teacher_number" jdbcType="VARCHAR" property="teacherNumber" />
     <result column="teacher_name" jdbcType="VARCHAR" property="teacherName" />
-    <result column="total_number" jdbcType="INTEGER" property="totalNumber" />
-    <result column="selected_number" jdbcType="INTEGER" property="selectedNumber" />
+    <result column="total_clesses" jdbcType="INTEGER" property="totalClesses" />
+    <result column="classes_left" jdbcType="INTEGER" property="classesLeft" />
     <result column="major_number" jdbcType="VARCHAR" property="majorNumber" />
   </resultMap>
 </mapper>

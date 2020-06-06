@@ -8,4 +8,5 @@ package com.sufu.ems.utils;
  */
 public class Constants {
     public static String ORDERKEY = "Class_ID_";
+    public final static String APIPREFIXV1 = "/api/v1";//不可变常量用作Api前缀
 }

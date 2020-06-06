@@ -54,7 +54,7 @@ public class StudentController {
      * @date 2020/5/13 16:30
      * @param
      * @return com.sufu.ems.dto.BaseResult
-     * @description 查询所有学生需要管理员权限
+     * @description 查询所有学生
      **/
     @GetMapping("students")
     @PreAuthorize("hasAuthority('admin')")

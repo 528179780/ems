@@ -1,11 +1,7 @@
 package com.sufu.ems.entity;
 
 import javax.persistence.*;
-/**
- * @author sufu
- * @date 2020/5/15 16:48
- * @description 按学生查询的课程实体类
- **/
+
 @Table(name = "tb_course_student")
 public class TbCourseStudent {
     /**
@@ -14,6 +10,12 @@ public class TbCourseStudent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    /**
+     * 这里的id是select_class类的id
+     **/
+    @Column(name = "class_id")
+    private Integer classId;
 
     /**
      * 课程编号
@@ -67,6 +69,20 @@ public class TbCourseStudent {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * @return class_id
+     */
+    public Integer getClassId() {
+        return classId;
+    }
+
+    /**
+     * @param classId
+     */
+    public void setClassId(Integer classId) {
+        this.classId = classId;
     }
 
     /**
@@ -175,5 +191,15 @@ public class TbCourseStudent {
      */
     public void setStudentName(String studentName) {
         this.studentName = studentName;
+    }
+
+    public TbCourseStudent(TbSelectClass selectClass,TbStudent student) {
+        this.classId = selectClass.getId();
+        this.courseName = selectClass.getCourseName();
+        this.courseNumber = selectClass.getCourseNumber();
+        this.studentName = student.getStudentName();
+        this.studentNumber = student.getStudentNumber();
+        this.teacherName = selectClass.getTeacherName();
+        this.teacherNumber = selectClass.getTeacherNumber();
     }
 }

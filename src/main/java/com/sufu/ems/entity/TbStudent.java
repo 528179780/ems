@@ -67,7 +67,7 @@ public class TbStudent {
     private String studentLevel;
 
     /**
-     * 学生专业
+     * 学生专业编号
      */
     @Column(name = "student_major")
     private String studentMajor;

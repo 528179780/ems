@@ -1,23 +1,22 @@
 package com.sufu.ems.controller;
 
 import com.sufu.ems.dto.BaseResult;
-import com.sufu.ems.entity.TbClassNumber;
-import com.sufu.ems.entity.TbOrder;
 import com.sufu.ems.entity.TbSelectClass;
 import com.sufu.ems.entity.TbStudent;
+import com.sufu.ems.exception.MajorNotMatchException;
+import com.sufu.ems.exception.RepeatedOperationException;
 import com.sufu.ems.exception.ResourceNotFindException;
 import com.sufu.ems.exception.UserNotFindException;
-import com.sufu.ems.service.TbClassNumberService;
-import com.sufu.ems.service.TbOrderService;
 import com.sufu.ems.service.TbSelectClassService;
 import com.sufu.ems.service.TbStudentService;
 import com.sufu.ems.utils.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -37,10 +36,8 @@ public class CurriculaVariableController {
     private TbSelectClassService tbSelectClassService;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
-    @Autowired
-    private TbClassNumberService tbClassNumberService;
-    @Autowired
-    private TbOrderService tbOrderService;
+
+    Logger logger = LoggerFactory.getLogger(CurriculaVariableController.class);
 
     /**
      * @author sufu
@@ -51,22 +48,31 @@ public class CurriculaVariableController {
      **/
     @PostConstruct
     private void init() throws ResourceNotFindException {
-        List<TbClassNumber> list = tbClassNumberService.selectAll();
+        List<TbSelectClass> list = tbSelectClassService.selectAll();
         if(list.size()!=0){
-            for (TbClassNumber tbClassNumber : list) {
-                stringRedisTemplate.opsForValue().set(Constants.ORDERKEY+tbClassNumber.getClassId(), tbClassNumber.getClassLeft()+"");
+            for (TbSelectClass selectClass : list) {
+                stringRedisTemplate.opsForValue().set(Constants.ORDERKEY+selectClass.getId(), selectClass.getClassesLeft()+"");
             }
         }
         else
             throw new ResourceNotFindException("初始化待选课程失败，没有课程余量记录，请联系管理员");
+        logger.info("初始化待选课程成功");
     }
+    /**
+     * @author sufu
+     * @date 2020/6/4 上午12:50
+     * @param studentNumber 学号
+     * @param classId 要选的select_class的id
+     * @return com.sufu.ems.dto.BaseResult
+     * @description 选课，具体业务在service里面
+     **/
     @Transactional
-    @PostMapping("/{classId}")
-    public BaseResult selectClass(String studentNumber,@PathVariable("classId") int classId) throws UserNotFindException {
-
-        return null;
+    @PreAuthorize("principal.username.equals(#studentNumber)")//限制只能给自己选课
+    @PostMapping(Constants.APIPREFIXV1+"/select/classes/{classId}")
+    public BaseResult selectClass(String studentNumber,@PathVariable("classId") int classId) throws ResourceNotFindException, UserNotFindException, RepeatedOperationException, MajorNotMatchException {
+        TbStudent student = tbStudentService.selectByStudentNumber(studentNumber);
+        return tbSelectClassService.selectClass(student, classId);
     }
-
 
     /**
      * @author sufu
@@ -75,7 +81,7 @@ public class CurriculaVariableController {
      * @return com.sufu.ems.dto.BaseResult
      * @description 根据学号查询待选课程
      **/
-    @GetMapping("/select/classes")
+    @GetMapping(Constants.APIPREFIXV1+"/select/classes")
     @PreAuthorize("principal.username.equals(#studentNumber)")//限制只能查询自己的信息
     public BaseResult getClasses(String studentNumber) throws Exception {
         TbStudent student = tbStudentService.selectByStudentNumber(studentNumber);

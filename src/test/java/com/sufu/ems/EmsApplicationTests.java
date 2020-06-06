@@ -6,11 +6,12 @@ import com.sufu.ems.entity.SeUser;
 import com.sufu.ems.entity.TbExam;
 import com.sufu.ems.entity.TbMajor;
 import com.sufu.ems.entity.TbStudent;
-import com.sufu.ems.service.TbExamService;
-import com.sufu.ems.service.SeUserService;
+import com.sufu.ems.exception.MajorNotMatchException;
+import com.sufu.ems.exception.RepeatedOperationException;
+import com.sufu.ems.exception.ResourceNotFindException;
+import com.sufu.ems.exception.UserNotFindException;
+import com.sufu.ems.service.*;
 
-import com.sufu.ems.service.TbMajorService;
-import com.sufu.ems.service.TbStudentService;
 import com.sufu.ems.utils.Constants;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -18,10 +19,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
@@ -30,8 +32,8 @@ import java.util.List;
 
 @SpringBootTest(classes = EmsApplication.class)
 @RunWith(SpringRunner.class)
-//@Transactional
-//@Rollback
+@Transactional
+@Rollback
 class EmsApplicationTests {
     private Logger logger = LoggerFactory.getLogger(EmsApplicationTests.class);
     @Autowired
@@ -50,6 +52,8 @@ class EmsApplicationTests {
     private TbExamService tbExamService;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private TbSelectClassService tbSelectClassService;
     @Test
     void contextLoads() {
     }
@@ -139,5 +143,14 @@ class EmsApplicationTests {
         stringRedisTemplate.opsForValue().set(Constants.ORDERKEY, 100+"");
         String s = stringRedisTemplate.opsForValue().get(Constants.ORDERKEY);
         System.out.println(s);
+    }
+    @Test
+    void testSelectClass() throws UserNotFindException, ResourceNotFindException, RepeatedOperationException, MajorNotMatchException {
+        TbStudent student = tbStudentService.selectByStudentNumber("11803990401");
+                tbSelectClassService.selectClass(student, 1);
+    }
+    @Test
+    void testDecrease(){
+
     }
 }
