@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +29,7 @@ import java.util.List;
  * @description 抢课Controller
  */
 @RestController
-@RequestMapping(Constants.APIPREFIXV1+"/student")
+@RequestMapping("/student")
 public class CurriculaVariableController {
     @Autowired
     private TbStudentService tbStudentService;
