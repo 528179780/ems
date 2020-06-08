@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Arrays;
@@ -87,6 +88,7 @@ public class TbSelectClassService {
      * @return com.sufu.ems.dto.BaseResult
      * @description 根据学号选课
      **/
+    @Transactional
     public BaseResult selectClass(TbStudent student,int classId) throws ResourceNotFindException, UserNotFindException, RepeatedOperationException, MajorNotMatchException {
         if(student == null){
             throw new UserNotFindException("要查询的学生为空");
@@ -141,6 +143,7 @@ public class TbSelectClassService {
      * @return com.sufu.ems.dto.BaseResult
      * @description 退选课程
      **/
+    @Transactional
     public BaseResult unselectClass(TbStudent student,int classId) throws UserNotFindException, ResourceNotFindException {
         if(student == null){
             throw new UserNotFindException("要查询的学生为空");
@@ -154,6 +157,7 @@ public class TbSelectClassService {
             }
             tbCourseStudentMapper.delete(tbCourseStudent);//删除该选课记录
             stringRedisTemplate.opsForValue().increment(Constants.ORDERKEY+classId);
+
             tbSelectClassMapper.increaseClassLeft(classId);
         }
         return null;

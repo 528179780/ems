@@ -1,5 +1,6 @@
 package com.sufu.ems.controller;
 
+import com.sufu.ems.entity.SeUser;
 import com.sufu.ems.exception.ResourceNotFindException;
 import com.sufu.ems.exception.UserNotFindException;
 import com.sufu.ems.dto.BaseResult;
@@ -9,11 +10,13 @@ import com.sufu.ems.entity.TbStudent;
 import com.sufu.ems.service.TbExamService;
 import com.sufu.ems.service.TbScoreService;
 import com.sufu.ems.service.TbStudentService;
+import com.sufu.ems.utils.CurrentPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,14 +70,14 @@ public class StudentController {
     /**
      * @author sufu
      * @date 2020/5/13 9:44
-     * @param studentNumber 学号
+     * @param
      * @return com.sufu.ems.dto.BaseResult
      * @description 查询自己的考试
      **/
     @GetMapping("/exams")
-    @PreAuthorize("principal.username.equals(#studentNumber)")//限制只能查询自己的信息
-    public BaseResult selectExamByStudentNumber(String studentNumber) throws Exception {
-        TbStudent student = tbStudentService.selectByStudentNumber(studentNumber);
+    public BaseResult selectExamByStudentNumber() throws Exception {
+        SeUser seUser =CurrentPrincipal.getCurrentPrincipal();
+        TbStudent student = tbStudentService.selectByStudentNumber(seUser.getUsername());
         if(student == null){
             throw new UserNotFindException();
         }
@@ -89,14 +92,15 @@ public class StudentController {
     /**
      * @author sufu
      * @date 2020/5/13 16:58
-     * @param studentNumber 学号
+     * @param
      * @return com.sufu.ems.dto.BaseResult
      * @description 查询自己的成绩
      **/
     @GetMapping("/scores")
-    @PreAuthorize("principal.username.equals(#studentNumber)")
-    public BaseResult selectScoreByStudentNumber(String studentNumber) throws Exception {
-        TbStudent student = tbStudentService.selectByStudentNumber(studentNumber);
+    public BaseResult getScores() throws Exception {
+        SeUser seUser =CurrentPrincipal.getCurrentPrincipal();
+        //查询当前用户的成绩
+        TbStudent student = tbStudentService.selectByStudentNumber(seUser.getUsername());
         //如果根据学号无法获得学生对象，则系统出现异常，抛出异常
         if(student == null){
             throw new UserNotFindException();
@@ -113,15 +117,15 @@ public class StudentController {
     /**
      * @author sufu
      * @date 2020/5/13 17:13
-     * @param studentNumber 学号
+     * @param
      * @return com.sufu.ems.dto.BaseResult
-     * @description 查询学生信息
+     * @description 查询当前登陆学生的信息
      **/
     @GetMapping("/info")
-    @PreAuthorize("principal.username.equals(#studentNumber)")
-    public BaseResult selectStudentByNumber(String studentNumber) throws UserNotFindException {
-        TbStudent student = tbStudentService.selectByStudentNumber(studentNumber);
-        //如果根据学号无法获得学生对象，则系统出现异常，抛出异常
+    public BaseResult selectStudentByNumber() throws UserNotFindException {
+        SeUser seUser =CurrentPrincipal.getCurrentPrincipal();
+        TbStudent student = tbStudentService.selectByStudentNumber(seUser.getUsername());
+        //如果根据学号无法获得学生对象，则系统出现异常，抛出异常,一般不会出现此异常，除非数据库中 SpringSecurity中的用户列表和学生信息布不匹配
         if(student == null){
             throw new UserNotFindException();
         }

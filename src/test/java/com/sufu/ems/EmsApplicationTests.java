@@ -149,8 +149,4 @@ class EmsApplicationTests {
         TbStudent student = tbStudentService.selectByStudentNumber("11803990401");
                 tbSelectClassService.selectClass(student, 1);
     }
-    @Test
-    void testDecrease(){
-
-    }
 }

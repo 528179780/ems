@@ -1,13 +1,14 @@
 package com.sufu.ems.controller;
 
+import com.sufu.ems.entity.SeUser;
 import com.sufu.ems.exception.ResourceNotFindException;
 import com.sufu.ems.exception.UserNotFindException;
 import com.sufu.ems.dto.BaseResult;
 import com.sufu.ems.entity.TbTeacher;
 import com.sufu.ems.service.TbCourseClassService;
 import com.sufu.ems.service.TbTeacherService;
+import com.sufu.ems.utils.CurrentPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,9 +34,9 @@ public class TeacherController {
         return new ModelAndView("/teacher/index");
     }
     @GetMapping("/classes")
-    @PreAuthorize("principal.username.equals(#teacherNumber)")//限制只能查询自己的信息
     public BaseResult selectClasses(String teacherNumber) throws UserNotFindException, ResourceNotFindException {
-        TbTeacher teacher = tbTeacherService.selectTeacherByTeacherNumber(teacherNumber);
+        SeUser seUser = CurrentPrincipal.getCurrentPrincipal();
+        TbTeacher teacher = tbTeacherService.selectTeacherByTeacherNumber(seUser.getUsername());
         if(teacher == null){
             throw new UserNotFindException("未找到该教师，系统异常");
         }

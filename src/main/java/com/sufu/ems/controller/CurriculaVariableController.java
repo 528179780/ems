@@ -1,6 +1,7 @@
 package com.sufu.ems.controller;
 
 import com.sufu.ems.dto.BaseResult;
+import com.sufu.ems.entity.SeUser;
 import com.sufu.ems.entity.TbSelectClass;
 import com.sufu.ems.entity.TbStudent;
 import com.sufu.ems.exception.MajorNotMatchException;
@@ -10,6 +11,7 @@ import com.sufu.ems.exception.UserNotFindException;
 import com.sufu.ems.service.TbSelectClassService;
 import com.sufu.ems.service.TbStudentService;
 import com.sufu.ems.utils.Constants;
+import com.sufu.ems.utils.CurrentPrincipal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ import java.util.List;
  * @description 抢课Controller
  */
 @RestController
-@RequestMapping("/student")
+@RequestMapping(Constants.APIPREFIXV1+"/student")
 public class CurriculaVariableController {
     @Autowired
     private TbStudentService tbStudentService;
@@ -61,30 +63,29 @@ public class CurriculaVariableController {
     /**
      * @author sufu
      * @date 2020/6/4 上午12:50
-     * @param studentNumber 学号
      * @param classId 要选的select_class的id
      * @return com.sufu.ems.dto.BaseResult
      * @description 选课，具体业务在service里面
      **/
     @Transactional
-    @PreAuthorize("principal.username.equals(#studentNumber)")//限制只能给自己选课
-    @PostMapping(Constants.APIPREFIXV1+"/select/classes/{classId}")
-    public BaseResult selectClass(String studentNumber,@PathVariable("classId") int classId) throws ResourceNotFindException, UserNotFindException, RepeatedOperationException, MajorNotMatchException {
-        TbStudent student = tbStudentService.selectByStudentNumber(studentNumber);
+    @PostMapping("/select/classes/{classId}")
+    public BaseResult selectClass(@PathVariable("classId") int classId) throws ResourceNotFindException, UserNotFindException, RepeatedOperationException, MajorNotMatchException {
+        SeUser seUser =CurrentPrincipal.getCurrentPrincipal();
+        TbStudent student = tbStudentService.selectByStudentNumber(seUser.getUsername());
         return tbSelectClassService.selectClass(student, classId);
     }
-
+    
     /**
      * @author sufu
      * @date 2020/5/30 0:20
-     * @param studentNumber 学号
+     * @param
      * @return com.sufu.ems.dto.BaseResult
      * @description 根据学号查询待选课程
      **/
-    @GetMapping(Constants.APIPREFIXV1+"/select/classes")
-    @PreAuthorize("principal.username.equals(#studentNumber)")//限制只能查询自己的信息
-    public BaseResult getClasses(String studentNumber) throws Exception {
-        TbStudent student = tbStudentService.selectByStudentNumber(studentNumber);
+    @GetMapping("/select/classes")
+    public BaseResult getClasses() throws Exception {
+        SeUser seUser = CurrentPrincipal.getCurrentPrincipal();
+        TbStudent student = tbStudentService.selectByStudentNumber(seUser.getUsername());
         if(student==null){
             throw new UserNotFindException();
         }

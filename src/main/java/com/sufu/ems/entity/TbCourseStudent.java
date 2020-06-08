@@ -202,4 +202,14 @@ public class TbCourseStudent {
         this.teacherName = selectClass.getTeacherName();
         this.teacherNumber = selectClass.getTeacherNumber();
     }
+
+    public TbCourseStudent(Integer id ,Integer classId, String courseNumber, String courseName, String teacherNumber, String teacherName, String studentNumber, String studentName) {
+        this.classId = classId;
+        this.courseNumber = courseNumber;
+        this.courseName = courseName;
+        this.teacherNumber = teacherNumber;
+        this.teacherName = teacherName;
+        this.studentNumber = studentNumber;
+        this.studentName = studentName;
+    }
 }

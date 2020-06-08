@@ -79,7 +79,6 @@ public class SpringSecurityConf extends WebSecurityConfigurerAdapter {
                 .antMatchers("/student/**").hasRole("student")
                 .antMatchers("/db/**").hasRole("db")
                 .antMatchers("/teacher/**").hasRole("teacher")
-                .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -91,6 +90,7 @@ public class SpringSecurityConf extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)//清除身份认证信息
                 .invalidateHttpSession(true)//使session失效
                 .and()
-                .csrf().disable();
+                .csrf().disable()
+                .sessionManagement().maximumSessions(1).expiredUrl("/login");
     }
 }

@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Table(name = "se_user")
 @Data
@@ -74,5 +75,25 @@ public class SeUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean equals(Object o){
+        if(o == this){
+            return true;
+        }
+        if(o == null||getClass()!=o.getClass())
+            return false;
+        SeUser seUser = (SeUser) o;
+        return Objects.equals(username, seUser.username);//用户名是唯一的 因此比较username就可以
+    }
+    public int hashCode(){
+        return Objects.hash(id,username,password,roles,enabled,locked);
+    }
+    public boolean hasRole(String role){
+        for (SeRole seRole : roles) {
+            if(seRole.getName().equals(role))
+                return true;
+        }
+        return false;
     }
 }
