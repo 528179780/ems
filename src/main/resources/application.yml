@@ -17,6 +17,9 @@ spring:
     database: 0
     host: 120.77.175.149
     port: 6379
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
 
 mybatis:

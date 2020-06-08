@@ -1,7 +1,6 @@
 package com.sufu.ems.controller;
 
 import com.sufu.ems.entity.SeUser;
-import com.sufu.ems.exception.ResourceNotFindException;
 import com.sufu.ems.exception.UserNotFindException;
 import com.sufu.ems.dto.BaseResult;
 import com.sufu.ems.entity.TbExam;
@@ -41,17 +40,9 @@ public class StudentController {
     public ModelAndView index(){
         return new ModelAndView("student/index");
     }
-    @GetMapping("/score")
-    public ModelAndView toScorePage(){
-        return new ModelAndView("student/score");
-    }
-    @GetMapping("/exam")
-    public ModelAndView toExamPage(){
-        return new ModelAndView("student/exam");
-    }
     @GetMapping("/select")
     public ModelAndView toSelectCoursePage(){
-        return new ModelAndView("student/select-courses");
+        return new ModelAndView("select");
     }
     /**
      * @author sufu
@@ -136,5 +127,9 @@ public class StudentController {
         }
         model.addAttribute("info", student);
         return "student/info";
+    }
+    @GetMapping("select/classes")
+    public String selectClass(){
+        return "student/select";
     }
 }

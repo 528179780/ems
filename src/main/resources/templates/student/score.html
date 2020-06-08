@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,145 +30,9 @@
             </li>
         </ul>
     </nav>
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
 
-    </ul>
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo -->
-        <a href="/student/index" class="brand-link">
-            <span class="brand-text font-weight-light" >Ems-Master</span>
-        </a>
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="/assets/img/user1.jpg" class="img-circle elevation-2" alt="User Image">
-                </div>
-                <div class="info">
-                    <a href="#" class="d-block">用户名</a>
-                </div>
-            </div>
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                        with font-awesome or any other icon font library -->
-                    <li class="nav-item has-treeview menu-open">
-                        <a href="#" class="nav-link active">
-                            <i class="fas fa-server"></i>
-                            <p>
-                                教务系统
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview active">
-                            <li class="nav-item">
-                                <a href="/student/score" class="nav-link active">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>成绩查询</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/student/exam" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>考试安排</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/student/select" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>网上选课</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>个人信息</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item has-treeview animated-dropdown-menu">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-server"></i>
-                            <p>
-                                学生服务
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>学工系统</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>一卡通</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>素质教育学分</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>电子邮箱</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item has-treeview animated-dropdown-menu">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-server"></i>
-                            <p>
-                                校园服务
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>办公电话查询</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>办公文件下载</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>校历</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>招生信息网</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                </ul>
-            </nav>
-        </div>
-        <!-- /.sidebar -->
-    </aside>
+    <div th:replace="include/leftsidebar :: lieftsidebar(~{::title})"></div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -203,52 +69,16 @@
                                     <th>学年</th>
                                     <th>学期</th>
                                     <th>课程名称</th>
-                                    <th>课程性质</th>
-                                    <th>学分</th>
                                     <th>成绩</th>
                                 </tr>
                                 </thead>
                                 <!--成绩单内容-->
                                 <tbody>
-                                <tr>
-                                    <td>2019-2020</td>
-                                    <td>1</td>
-                                    <td>Java web</td>
-                                    <td>专业核心</td>
-                                    <td>6</td>
-                                    <td>80</td>
-                                </tr>
-                                <tr>
-                                    <td>2019-2020</td>
-                                    <td>1</td>
-                                    <td>Java web</td>
-                                    <td>专业核心</td>
-                                    <td>6</td>
-                                    <td>80</td>
-                                </tr>
-                                <tr>
-                                    <td>2019-2020</td>
-                                    <td>1</td>
-                                    <td>Java web</td>
-                                    <td>专业核心</td>
-                                    <td>6</td>
-                                    <td>80</td>
-                                </tr>
-                                <tr>
-                                    <td>2019-2020</td>
-                                    <td>1</td>
-                                    <td>Java web</td>
-                                    <td>专业核心</td>
-                                    <td>6</td>
-                                    <td>80</td>
-                                </tr>
-                                <tr>
-                                    <td>2019-2020</td>
-                                    <td>1</td>
-                                    <td>Java web</td>
-                                    <td>专业核心</td>
-                                    <td>6</td>
-                                    <td>80</td>
+                                <tr th:each="score : ${scores}">
+                                    <td th:text="${score.getStudyYear()}">2019-2020</td>
+                                    <td th:text="${score.getExamTerm()}">1</td>
+                                    <td th:text="${score.getCourseName()}">Java web</td>
+                                    <td th:text="${score.getExamMark()}">80</td>
                                 </tr>
                                 </tbody>
                             </table>

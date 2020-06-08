@@ -1,5 +1,7 @@
 package com.sufu.ems.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -11,6 +13,7 @@ import java.util.Date;
 public class TbExam {
     private Integer id;
     private String courseName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd ")
     private Date examBegin;
     private Date examEnd;
     private String examPlace;

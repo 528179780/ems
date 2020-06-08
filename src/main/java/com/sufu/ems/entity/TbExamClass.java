@@ -1,5 +1,7 @@
 package com.sufu.ems.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import javax.persistence.*;
 
@@ -34,12 +36,14 @@ public class TbExamClass extends TbExam{
      * 考试开始时间
      */
     @Column(name = "exam_begin")
+    @DateTimeFormat(pattern = "yyyy-MM-dd ")
     private Date examBegin;
 
     /**
      * 考试结束时间
      */
     @Column(name = "exam_end")
+    @DateTimeFormat(pattern = "yyyy-MM-dd ")
     private Date examEnd;
 
     /**

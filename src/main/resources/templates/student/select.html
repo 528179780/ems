@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>考试安排</title>
+    <title>网上选课</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/assets/css/adminlte.min.css">
+    <!-- jsGrid -->
+    <link rel="stylesheet" href="/plugins/jsgrid/jsgrid.min.css">
+    <link rel="stylesheet" href="/plugins/jsgrid/jsgrid-theme.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -40,33 +43,30 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="stu-main.html">首页</a></li>
-                            <li class="breadcrumb-item active">考试安排</li>
+                            <li class="breadcrumb-item active">网上选课</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
         <section class="content">
-            <div class="col-md-6" id="mainContainner" th:each="exam : ${exams}">
-                <div class="card" >
-                    <div class="card-body">
-                        <dl class="row">
-                            <dt class="col-sm-4">考试科目：</dt>
-                            <dd class="col-sm-8" th:text="${exam.getCourseName()}">2020-3-8 8：00-10：00</dd>
-                            <dt class="col-sm-4">考试时间：</dt>
-                            <dd class="col-sm-8" th:text="${#dates.format(exam.getExamBegin(), 'yyyy-MM-dd HH:mm ')+#dates.format(exam.getExamEnd(),'- HH:mm')}">2020-3-8 8：00-10：00</dd>
-                            <dt class="col-sm-4">考试地点</dt>
-                            <dd class="col-sm-8" th:text="${exam.getExamPlace()}">5教-203(花溪校区)</dd>
-                            <dt class="col-sm-4">专业：</dt>
-                            <dd class="col-sm-8" th:text="${exam.getMajorName()}">计算机科学与技术</dd>
-                        </dl>
-                    </div>
-                    <!-- /.card-body -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">已选课程</h3>
                 </div>
-                <!-- /.card -->
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div id="jsGrid1"></div>
+                </div>
+                <!-- /.card-body -->
             </div>
+            <!-- /.card -->
         </section>
     </div>
+    <!-- /.content-wrapper -->
+
     <footer class="main-footer">
         <strong>Copyright &copy; 2020-2020 <a href="https://github.com/528179780/ems">Ems-Master.io</a>.</strong>
         All rights reserved.
@@ -85,9 +85,33 @@
 
 <!-- jQuery -->
 <script src="/plugins/jquery/jquery.min.js"></script>
+<!-- jsGrid -->
+<script src="/plugins/jsgrid/demos/db.js"></script>
+<script src="/plugins/jsgrid/jsgrid.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/assets/js/adminlte.js"></script>
+<script>
+    $(function () {
+        $("#jsGrid1").jsGrid({
+            height: "100%",
+            width: "100%",
+
+            sorting: true,
+            paging: true,
+
+            data: db.clients,
+
+            fields: [
+                { name: "CourseName", type: "text",title:"课程名称", width: 100 },
+                { name: "TeacherName", type: "text",title:"教师姓名", width: 100 },
+                { name: "CourseNature", type: "select", title:"课程性质",items: db.CourseNature, valueField: "Id", textField: "Name"},
+                { name: "Credit",type:"number",title:"学分",width: 30},
+                { name: "selected", type: "checkbox", title: "选否", width: 30}
+            ]
+        });
+    });
+</script>
 </body>
 </html>
