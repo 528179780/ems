@@ -67,7 +67,7 @@ public class StudentController {
      * @return com.sufu.ems.dto.BaseResult
      * @description 查询自己的考试
      **/
-    @GetMapping("/exams")
+    @GetMapping("/to/exams")
     public String selectExamByStudentNumber(Model model) throws Exception {
         SeUser seUser =CurrentPrincipal.getCurrentPrincipal();
         TbStudent student = tbStudentService.selectByStudentNumber(seUser.getUsername());
@@ -90,7 +90,7 @@ public class StudentController {
      * @return com.sufu.ems.dto.BaseResult
      * @description 查询自己的成绩
      **/
-    @GetMapping("/scores")
+    @GetMapping("/to/scores")
     public String getScores(Model model) throws Exception {
         SeUser seUser =CurrentPrincipal.getCurrentPrincipal();
         //查询当前用户的成绩
@@ -116,7 +116,7 @@ public class StudentController {
      * @return com.sufu.ems.dto.BaseResult
      * @description 查询当前登陆学生的信息
      **/
-    @GetMapping("/info")
+    @GetMapping("to/info")
     public String selectStudentByNumber(Model model) throws UserNotFindException {
         SeUser seUser =CurrentPrincipal.getCurrentPrincipal();
         TbStudent student = tbStudentService.selectByStudentNumber(seUser.getUsername());

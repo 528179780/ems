@@ -10,8 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/assets/css/adminlte.min.css">
 </head>
@@ -27,7 +25,7 @@
             </li>
         </ul>
     </nav>
-    <div th:replace="include/leftsidebar :: lieftsidebar(~{::title})"></div>
+    <div th:replace="include/leftsidebar :: leftsidebar(~{::title})"></div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -67,14 +65,7 @@
             </div>
         </section>
     </div>
-    <footer class="main-footer">
-        <strong>Copyright &copy; 2020-2020 <a href="https://github.com/528179780/ems">Ems-Master.io</a>.</strong>
-        All rights reserved.
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 1.0.0
-        </div>
-    </footer>
-
+    <footer th:replace="include/copyright :: footer"></footer>
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
         <!-- Control sidebar content goes here -->

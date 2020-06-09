@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ch" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<div th:fragment="lieftsidebar(currentpage)">
+<div th:fragment="leftsidebar(currentpage)">
     <aside class="main-sidebar sidebar-dark-primary elevation-4" >
     <!-- Brand Logo -->
     <a href="/index" class="brand-link">
@@ -28,27 +28,27 @@
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview" sec:authroize="hasAnyRole('ROLE_admin')">
                         <li class="nav-item">
-                            <a href="/student/scores" class="nav-link">
+                            <a href="/student/to/scores" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>成绩查询</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/student/exams" class="nav-link" th:classappend="${currentpage=='<title>考试安排</title>'?'active':''}">
+                            <a href="/student/to/exams" class="nav-link" th:classappend="${currentpage=='<title>考试安排</title>'?'active':''}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>考试安排</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/student/select/classes" class="nav-link">
+                            <a href="/student/to/select/classes" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>网上选课</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/student/to/info" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>个人信息</p>
                             </a>

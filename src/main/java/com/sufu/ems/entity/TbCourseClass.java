@@ -137,7 +137,7 @@ public class TbCourseClass {
     }
 
     /**
-     * 获取班级编号，以‘，’隔开的字符串
+     * 获取班级编号
      *
      * @return class_number - 班级编号，以‘，’隔开的字符串
      */
@@ -146,7 +146,7 @@ public class TbCourseClass {
     }
 
     /**
-     * 设置班级编号，以‘，’隔开的字符串
+     * 设置班级编号
      *
      * @param classNumber 班级编号，以‘，’隔开的字符串
      */

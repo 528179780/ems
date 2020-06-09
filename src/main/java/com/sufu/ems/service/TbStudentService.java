@@ -64,4 +64,17 @@ public class TbStudentService {
         criteria.andEqualTo("studentNumber", num);
         return tbStudentMapper.selectOneByExample(example);
     }
+    /**
+     * @author sufu
+     * @date 2020/6/9 上午11:41
+     * @param classNumber 班级号
+     * @return java.util.List<com.sufu.ems.entity.TbStudent>
+     * @description 根据班级查询学生列表
+     **/
+    public List<TbStudent> selectByClass(String classNumber){
+        Example example = new Example(TbStudent.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("studentClass", classNumber);
+        return tbStudentMapper.selectByExample(example);
+    }
 }

@@ -1,10 +1,14 @@
 package com.sufu.ems.service;
 
 import com.sufu.ems.dao.TbTeacherMapper;
+import com.sufu.ems.entity.TbCourseClass;
+import com.sufu.ems.entity.TbStudent;
 import com.sufu.ems.entity.TbTeacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
 
 /**
  * @author sufu

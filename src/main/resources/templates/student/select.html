@@ -30,7 +30,7 @@
             </li>
         </ul>
     </nav>
-    <div th:replace="include/leftsidebar :: lieftsidebar(~{::title})"></div>
+    <div th:replace="include/leftsidebar :: leftsidebar(~{::title})"></div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -76,7 +76,6 @@
                                 <td th:text="${classes.getStudentNumber()}">11803990401</td>
                                 <td th:text="${classes.getStudentName()}">苏伏</td>
                                 <td th:text="${classes.getTeacherName()}">教师1</td>
-
                             </tr>
                             </tbody>
                         </table>
@@ -88,19 +87,7 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <footer class="main-footer">
-        <strong>Copyright &copy; 2020-2020 <a href="https://github.com/528179780/ems">Ems-Master.io</a>.</strong>
-        All rights reserved.
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 1.0.0
-        </div>
-    </footer>
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+    <footer th:replace="include/copyright :: footer"></footer>
 </div>
 <!-- ./wrapper -->
 

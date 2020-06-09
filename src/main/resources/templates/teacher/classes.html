@@ -27,7 +27,7 @@
             </li>
         </ul>
     </nav>
-    <div th:replace="include/leftsidebar :: leftsidebar(~{::title})"></div>
+    <div th:replace="include/leftsidebar :: lieftsidebar(~{::title})"></div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -40,9 +40,9 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/index">Home</a></li>
-<!--                            <div sec:authroize="!isAuthenticated()">-->
-<!--                                <li class="breadcrumb-item active"><a th:text="${session.username}">username</a></li>-->
-<!--                            </div>-->
+                            <!--                            <div sec:authroize="!isAuthenticated()">-->
+                            <!--                                <li class="breadcrumb-item active"><a th:text="${session.username}">username</a></li>-->
+                            <!--                            </div>-->
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->

@@ -58,4 +58,20 @@ public class TbScore {
      */
     @Column(name = "exam_mark")
     private Integer examMark;
+
+    public TbScore(int id,String courseName, String studentNumber, String studentName, String studyYear, Integer examTerm, Integer examMark) {
+        this.id = id;
+        this.courseName = courseName;
+        this.studentNumber = studentNumber;
+        this.studentName = studentName;
+        this.studyYear = studyYear;
+        this.examTerm = examTerm;
+        this.examMark = examMark;
+    }
+
+    public TbScore(TbStudent student, TbCourseClass tbCourseClass) {
+        this.studentNumber = student.getStudentNumber();
+        this.studentName = student.getStudentName();
+        this.courseName = tbCourseClass.getCourseName();
+    }
 }

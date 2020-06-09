@@ -36,7 +36,7 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <footer th:replace="~{stu-mould::main-footer}"></footer>
+    <footer th:replace="~{include/copyright::footer}"></footer>
 
 </div>
 <!-- ./wrapper -->
@@ -45,10 +45,6 @@
 <script th:src="@{plugins/jquery/jquery.min.js}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script th:src="@{plugins/jquery-ui/jquery-ui.min.js}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-    $.widget.bridge('uibutton', $.ui.button)
-</script>
 <!-- Bootstrap 4 -->
 <script th:src="@{plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!-- AdminLTE App -->
