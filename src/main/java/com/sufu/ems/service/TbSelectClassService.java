@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -48,19 +47,16 @@ public class TbSelectClassService {
      * @return java.util.List<com.sufu.ems.entity.TbSelectClass>
      * @description 根据学生查询待选课程
      **/
-    public List<TbSelectClass> getClasses(TbStudent student) throws ResourceNotFindException {
+    public List<TbSelectClass> getClassesNeedSelect(TbStudent student) throws ResourceNotFindException {
         //查询已选课程
-        Example example = new Example(TbCourseStudent.class);
-        Example.Criteria criteria1 = example.createCriteria();
-        criteria1.andEqualTo("studentNumber", student.getStudentNumber());
-        List<TbCourseStudent> selectedCoursesList = tbCourseStudentMapper.selectByExample(example);
+        List<TbCourseStudent> selectedClassesList = getSelectedClasses(student);
         List<TbSelectClass> tbSelectClasses;
         //已选课程
-        if(selectedCoursesList.size() != 0){
+        if(selectedClassesList.size() != 0){
             Example example1 = new Example(TbSelectClass.class);
             Example.Criteria criteria = example1.createCriteria();
-            for (TbCourseStudent tbCourseStudent : selectedCoursesList) {
-                criteria.andNotEqualTo("courseNumber",tbCourseStudent.getCourseNumber());
+            for (TbCourseStudent selectedClass : selectedClassesList) {
+                criteria.andNotEqualTo("courseNumber",selectedClass.getCourseNumber());
             }
             tbSelectClasses = tbSelectClassMapper.selectByExample(example1);
         }
@@ -78,6 +74,20 @@ public class TbSelectClassService {
             throw new ResourceNotFindException("没有课程要选");
         }
         return tbSelectClasses;
+    }
+
+    /**
+     * @author sufu
+     * @date 2020/6/9 上午10:46
+     * @param student
+     * @return java.util.List<com.sufu.ems.entity.TbSelectClass>
+     * @description 查询已经选择的课程
+     **/
+    public List<TbCourseStudent> getSelectedClasses(TbStudent student){
+        Example example = new Example(TbCourseStudent.class);
+        Example.Criteria criteria1 = example.createCriteria();
+        criteria1.andEqualTo("studentNumber", student.getStudentNumber());
+        return tbCourseStudentMapper.selectByExample(example);
     }
 
     /**

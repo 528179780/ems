@@ -1,13 +1,11 @@
 package com.sufu.ems.controller;
 
-import com.sufu.ems.entity.SeUser;
+import com.sufu.ems.entity.*;
 import com.sufu.ems.exception.UserNotFindException;
 import com.sufu.ems.dto.BaseResult;
-import com.sufu.ems.entity.TbExam;
-import com.sufu.ems.entity.TbScore;
-import com.sufu.ems.entity.TbStudent;
 import com.sufu.ems.service.TbExamService;
 import com.sufu.ems.service.TbScoreService;
+import com.sufu.ems.service.TbSelectClassService;
 import com.sufu.ems.service.TbStudentService;
 import com.sufu.ems.utils.CurrentPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +34,8 @@ public class StudentController {
     private TbExamService tbExamService;
     @Autowired
     private TbScoreService tbScoreService;
+    @Autowired
+    private TbSelectClassService tbSelectClassService;
     @GetMapping({"/","index"})
     public ModelAndView index(){
         return new ModelAndView("student/index");
@@ -128,8 +128,24 @@ public class StudentController {
         model.addAttribute("info", student);
         return "student/info";
     }
-    @GetMapping("select/classes")
-    public String selectClass(){
+    /**
+     * @author sufu
+     * @date 2020/6/9 上午10:55
+     * @param model
+     * @return java.lang.String
+     * @description 跳转到选课页面的方法
+     **/
+    @GetMapping("to/select/classes")
+    public String selectClass(Model model){
+        SeUser seUser = CurrentPrincipal.getCurrentPrincipal();
+        TbStudent student = tbStudentService.selectByStudentNumber(seUser.getUsername());
+        //如果根据学号无法获得学生对象，则系统出现异常，抛出异常,一般不会出现此异常，除非数据库中 SpringSecurity中的用户列表和学生信息布不匹配
+        if(student == null){
+            model.addAttribute("error", "没有找到学生信息，系统异常！");
+            return "student/info";
+        }
+        List<TbCourseStudent> list =tbSelectClassService.getSelectedClasses(student);
+        model.addAttribute("selectedClasses",list);
         return "student/select";
     }
 }

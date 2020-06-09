@@ -56,11 +56,32 @@
                 <div class="card-header">
                     <h3 class="card-title">已选课程</h3>
                 </div>
-                <!-- /.card-header -->
                 <div class="card-body">
-                    <div id="jsGrid1"></div>
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>课程编号</th>
+                                <th>课程名称</th>
+                                <th>学生学号</th>
+                                <th>学生姓名</th>
+                                <th>教师姓名</th>
+                            </tr>
+                            </thead>
+                            <!--成绩单内容-->
+                            <tbody>
+                            <tr th:each="classes : ${selectedClasses}">
+                                <td th:text="${classes.getCourseNumber()}">00358</td>
+                                <td th:text="${classes.getCourseName()}">大学物理</td>
+                                <td th:text="${classes.getStudentNumber()}">11803990401</td>
+                                <td th:text="${classes.getStudentName()}">苏伏</td>
+                                <td th:text="${classes.getTeacherName()}">教师1</td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <!-- /.card-body -->
             </div>
             <!-- /.card -->
         </section>

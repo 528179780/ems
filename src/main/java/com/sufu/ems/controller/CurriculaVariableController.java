@@ -16,7 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -28,7 +30,7 @@ import java.util.List;
  * @date 2020/5/15 16:37
  * @description 抢课Controller
  */
-@RestController
+@Controller
 @RequestMapping("/student")
 public class CurriculaVariableController {
     @Autowired
@@ -67,6 +69,7 @@ public class CurriculaVariableController {
      * @description 选课，具体业务在service里面
      **/
     @Transactional
+    @ResponseBody
     @PostMapping("/select/classes/{classId}")
     public BaseResult selectClass(@PathVariable("classId") int classId) throws ResourceNotFindException, UserNotFindException, RepeatedOperationException, MajorNotMatchException {
         SeUser seUser =CurrentPrincipal.getCurrentPrincipal();
@@ -81,14 +84,19 @@ public class CurriculaVariableController {
      * @return com.sufu.ems.dto.BaseResult
      * @description 根据学号查询待选课程
      **/
-    @GetMapping("/select/classes")
-    public BaseResult getClasses() throws Exception {
+    @GetMapping("/get/select/classes")
+    public String getClasses(Model model) throws Exception {
         SeUser seUser = CurrentPrincipal.getCurrentPrincipal();
         TbStudent student = tbStudentService.selectByStudentNumber(seUser.getUsername());
         if(student==null){
             throw new UserNotFindException();
         }
-        List<TbSelectClass> classes = tbSelectClassService.getClasses(student);
-        return BaseResult.success("请求成功",classes);
+        List<TbSelectClass> classes = tbSelectClassService.getClassesNeedSelect(student);
+        model.addAttribute("classes", classes);
+        return "/student/select";
+    }
+    @GetMapping("get/selected/class")
+    public String getSelectedClass(){
+        return null;
     }
 }
